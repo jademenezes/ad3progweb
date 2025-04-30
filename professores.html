@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <div class="logo-titulo">
+        <img
+          src="img/logo.png"
+          alt="Instituto Federal Catarinense"
+          class="logo"
+        />
+        <h1>Gestão Acadêmica</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Página Principal</a></li>
+          <li><a href="cursos.html">Cadastro de Cursos</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <button id="addProf">Adicionar Professor</button>
+      <table id="profTable">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Sala</th>
+            <th>Turno</th>
+            <th>Disciplinas(s)</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Cursos inseridos aqui dinamicamente -->
+        </tbody>
+      </table>
+    </main>
+
+    <!-- janela Modal para adicionar/editar Curso -->
+    <div id="profModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Adicionar/Editar Professor</h2>
+        <form id="profForm">
+          <input type="hidden" id="codigo" name="codigo" required />
+          <label for="nomeProf">Nome do Professor:</label>
+          <input type="text" name="nomeProfessor" id="nomeProfessor" required />
+          <label for="email">E-mail:</label>
+          <input type="text" name="email" id="email" required />
+          <label for="sala">Sala</label>
+          <input type="text" name="sala" id="sala" required />
+          <label for="cursosProf">Turno</label>
+          <input type="text" name="turnoProf" id="turnoProf" required />
+
+          <!-- Disciplinas adicionadas por JS -->
+          <label for="disciplinaProf">Disciplina(s):</label>
+          <div class="disciplinas">
+            <input type="text" name="disciplinaProf" id="disciplinaProf" />
+            <button type="button" id="addDisciplina">Adicionar</button>
+          </div>
+          <ul id="disciplinasList"></ul>
+
+          <button type="submit">Salvar</button>
+        </form>
+      </div>
+    </div>
+    <footer>
+      <!-- Conteudo gerado dinamicamente -->
+    </footer>
+    <script src="professores.js"></script>
+  </body>
+</html>
