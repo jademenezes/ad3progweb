@@ -1,0 +1,41 @@
+table {
+  border-collapse: collapse;
+  width: 10%;
+  margin-bottom: 20px;
+}
+
+table td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: center;
+}
+
+table th {
+  border: none;
+  padding: 8px;
+  font-weight: bold;
+  text-align: left;
+
+}
+
+.seta-botao {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 8px;
+  
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 20px;    
+}
+
+.setas {
+  display: flex;
+  flex-direction: column;
+}
+
+#tabelaFila {
+  margin-top: -3.8%;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Cadastro de Cursos</title>
+</head>
+<body>
+    <header>
+        <div class="logo-titulo">
+            <img src="img/logo.png" alt="Instituto Federal Catarinense" class="logo">
+            <h1>Gestão Acadêmica</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Página Principal</a></li>
+                <li><a href="professores.html">Cadastro de Professores</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <button id="addCurso">Adicionar Curso</button>
+        <table id="cursosTable">
+            <thead>
+                <tr>
+                    <th>Nome do Curso</th>
+                    <th>Semestre</th>
+                    <th>Coordenador</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Cursos inseridos aqui dinamicamente -->
+            </tbody>
+        </table>
+    </main>
+    <!-- janela Modal para adicionar/editar Curso -->
+     <div id="cursoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Adicionar/Editar Curso</h2>
+            <form id="cursoForm">
+                <input type="hidden" id="codigo" name="codigo" required>
+                <label for="nomeCurso">Nome do Curso:</label>
+                <input type="text" name="nomeCurso" id="nomeCurso" required>
+                <label for="semestres">Semestres:</label>
+                <input type="text" name="semestres" id="semestres" required>
+                <label for="coordenador">Coordenador</label>
+                <input type="text" name="coordenador" id="coordenador" required>
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+     </div>
+     <script src="cursos.js"></script>
+</body>
+</html>
