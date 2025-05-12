@@ -1,0 +1,21 @@
+[
+  {
+    "codigo": 1,
+    "nome": "Joice",
+    "email": "joice...@...com",
+    "sala": "2A",
+    "turno": "Manhã",
+    "disciplinas": [
+      "Programação Orientada a Objetos",
+      "Banco de Dados Geográficos"
+    ]
+  },
+  {
+    "codigo": 2,
+    "nome": "Rafael",
+    "email": "rafael...@...com",
+    "sala": "1C",
+    "turno": "Tarde",
+    "disciplinas": ["Algoritmos e Lógica de Programação", "Programação Web"]
+  }
+]

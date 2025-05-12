@@ -1,24 +1,24 @@
-let professores = [
-  {
-    codigo: 1,
-    nome: 'Joice',
-    email: 'joice...@...com',
-    sala: '2A',
-    turno: 'Manhã',
-    disciplinas: [
-      'Programação Orientada a Objetos',
-      'Banco de Dados Geográficos',
-    ],
-  },
-  {
-    codigo: 2,
-    nome: 'Rafael',
-    email: 'rafael...@...com',
-    sala: '1C',
-    turno: 'Tarde',
-    disciplinas: ['Algoritmos e Lógica de Programação', 'Programação Web'],
-  },
-];
+// let professores = [
+//   {
+//     codigo: 1,
+//     nome: 'Joice',
+//     email: 'joice...@...com',
+//     sala: '2A',
+//     turno: 'Manhã',
+//     disciplinas: [
+//       'Programação Orientada a Objetos',
+//       'Banco de Dados Geográficos',
+//     ],
+//   },
+//   {
+//     codigo: 2,
+//     nome: 'Rafael',
+//     email: 'rafael...@...com',
+//     sala: '1C',
+//     turno: 'Tarde',
+//     disciplinas: ['Algoritmos e Lógica de Programação', 'Programação Web'],
+//   },
+// ];
 
 let currentProfIndex = null;
 let currentDisciplinas = [];
@@ -37,21 +37,30 @@ function closeModal(modalId) {
 function renderProfessores() {
   const tbody = document.querySelector('#profTable tbody');
   tbody.innerHTML = '';
-  professores.forEach((professor, index) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-          <td>${professor.nome}</td>
-          <td>${professor.email}</td>
-          <td>${professor.sala}</td>
-          <td>${professor.turno}</td>
-          <td>${professor.disciplinas}</td>
-          <td>
-          <button onclick="editProf(${index})">Editar</button>
-          <button onclick="deleteProf(${index})">Excluir</button>
-          </td>
-          `;
-    tbody.appendChild(row);
-  });
+
+  fetch('http://localhost:3000/professores')
+    .then((response) => response.json())
+    .then((data) => {
+      // Log lista recebida da resposta do servidor
+      const professores = data.professores;
+      console.log(professores);
+
+      professores.forEach((professor, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+              <td>${professor.nome}</td>
+              <td>${professor.email}</td>
+              <td>${professor.sala}</td>
+              <td>${professor.turno}</td>
+              <td>${professor.disciplinas}</td>
+              <td>
+              <button onclick="editProf(${index})">Editar</button>
+              <button onclick="deleteProf(${index})">Excluir</button>
+              </td>
+              `;
+        tbody.appendChild(row);
+      });
+    });
 }
 // Adiciona uma disciplina na lista
 function addDisciplina() {
