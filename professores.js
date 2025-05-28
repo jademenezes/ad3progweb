@@ -20,8 +20,11 @@
 //   },
 // ];
 
+// const { response } = require('express');
+
 let currentProfIndex = null;
 let currentDisciplinas = [];
+let professores = [];
 
 // abrir janela modal
 function openModal(modalId) {
@@ -33,6 +36,13 @@ function closeModal(modalId) {
   document.getElementById(modalId).style.display = 'none';
 }
 
+// Gera um código para cada professor
+function gerarCodigo() {
+  const min = 0;
+  const max = 99;
+  return Math.floor(min + Math.random() * (max - min + 1));
+}
+
 // Renderizar lista de professores
 function renderProfessores() {
   const tbody = document.querySelector('#profTable tbody');
@@ -40,9 +50,9 @@ function renderProfessores() {
 
   fetch('http://localhost:3000/professores')
     .then((response) => response.json())
-    .then((data) => {
+    .then((dados) => {
+      professores = dados.professores;
       // Log lista recebida da resposta do servidor
-      const professores = data.professores;
       console.log(professores);
 
       professores.forEach((professor, index) => {
@@ -107,9 +117,26 @@ function deleteProf(index) {
 }
 
 // Adiciona professor à lista
-function addProf(codigo, nome, email, sala, turno, disciplinas) {
-  professores.push({ codigo, nome, email, sala, turno, disciplinas });
-  renderProfessores();
+function addProf(nome, email, sala, turno, disciplinas) {
+  // professores.push({ codigo, nome, email, sala, turno, disciplinas });
+
+  // cria um codigo aleatorio para o professor
+  const codigo = gerarCodigo();
+  console.log('código = ' + codigo);
+
+  let professor = { codigo, nome, email, sala, turno, disciplinas };
+  console.log(professor);
+
+  fetch('http://localhost:3000/professores', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(professor),
+  })
+    .then((response) => response.json())
+    .then((dados) => {
+      console.log(dados);
+      renderProfessores();
+    });
 }
 
 // chama função openModal() limpando os campos
@@ -118,8 +145,9 @@ btAddProf.addEventListener('click', function () {
   currentProfIndex = null;
   currentDisciplinas = [];
   document.getElementById('profForm').reset();
-  const list = document.getElementById('disciplinasList');
-  list.innerHTML = '';
+  document.getElementById('codigo').value = '';
+  const disciplinasList = document.getElementById('disciplinasList');
+  disciplinasList.innerHTML = '';
 
   openModal('profModal');
 });
@@ -154,10 +182,10 @@ profForm.addEventListener('submit', (e) => {
       turno,
       disciplinas,
     };
-  else addProf(codigo, nome, email, sala, turno, disciplinas);
+  else addProf(nome, email, sala, turno, disciplinas);
 
   closeModal('profModal');
-  renderProfessores();
+  // renderProfessores();
 });
 
 // chama função closeModal()

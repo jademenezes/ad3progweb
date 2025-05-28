@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
   fetch('sobre.json')
     .then((response) => response.json())
     .then((dados) => {
-      console.log(dados);
+      // console.log(dados);
       sobre.innerHTML = `
         <p>Desenvolvido por ${dados.autor}, em ${dados.data}</p>
         <p>Contatos: ${dados.contatos[0]}</p>
