@@ -1,10 +1,12 @@
-// array de cursos
-let cursos = [
-  { codigo: 1, nomeCurso: 'TSI', semestres: 5, coordenador: 'Joice' },
-  { codigo: 2, nomeCurso: 'BSI', semestres: 8, coordenador: 'Aujor' },
-];
+// // array de cursos
+// let cursos = [
+//   { codigo: 1, nomeCurso: 'TSI', semestres: 5, coordenador: 'Joice' },
+//   { codigo: 2, nomeCurso: 'BSI', semestres: 8, coordenador: 'Aujor' },
+// ];
+
 // variavel para o id atual
 let currentCursoIndex = null;
+let cursos = [];
 
 // abrir janela modal
 function openModal(modalId) {
@@ -31,23 +33,40 @@ document.querySelectorAll('.close').forEach(function (closeBtn) {
   });
 });
 
+// Gera um código para cada professor
+function gerarCodigo() {
+  const min = 0;
+  const max = 99;
+  return Math.floor(min + Math.random() * (max - min + 1));
+}
+
 // carregar os cursos como linhas de tabela
 function renderCursos() {
   const tbody = document.querySelector('#cursosTable tbody');
   tbody.innerHTML = '';
-  cursos.forEach((curso, index) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${curso.nomeCurso}</td>
-      <td>${curso.semestres}</td>
-      <td>${curso.coordenador}</td>
-      <td>
-            <button onclick="editCurso(${index})">Editar</button>
-            <button onclick="deleteCurso(${index})">Excluir</button>
-      </td>
-      `;
-    tbody.appendChild(row);
-  });
+
+  fetch('http://localhost:3000/cursos')
+    .then((response) => response.json())
+    .then((data) => {
+      cursos = data.cursos;
+      // Log lista recebida da resposta do servidor
+      console.log(cursos);
+
+      cursos.forEach((curso, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+        <td>${curso.nome}</td>
+        <td>${curso.sigla}</td>
+        <td>${curso.descricao}</td>
+        <td>${curso.coordenador}</td>
+        <td>
+              <button onclick="editCurso(${index})">Editar</button>
+              <button onclick="deleteCurso(${index})">Excluir</button>
+        </td>
+        `;
+        tbody.appendChild(row);
+      });
+    });
 }
 
 function editCurso(index) {
@@ -68,24 +87,41 @@ function deleteCurso(index) {
   renderCursos();
 }
 
-function addCurso(codigo, nomeCurso, semestres, coordenador) {
-  cursos.push({ codigo, nomeCurso, semestres, coordenador });
-  renderCursos();
+function addCurso(nome, sigla, descricao, coordenador) {
+  // cursos.push({ codigo, nomeCurso, semestres, coordenador });
+
+  const codigo = gerarCodigo();
+  console.log('código = ' + codigo);
+
+  let curso = { codigo, nome, sigla, descricao, coordenador };
+  console.log(curso);
+
+  fetch('http://localhost:3000/professores', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(curso),
+  })
+    .then((response) => response.json())
+    .then((dados) => {
+      console.log(dados);
+      renderCursos();
+    });
 }
 
 const cursoForm = document.getElementById('cursoForm');
 cursoForm.addEventListener('submit', function (e) {
   e.preventDefault();
 
-  const codigo = document.getElementById('codigo').value;
-  const nomeCurso = document.getElementById('nomeCurso').value;
-  const semestres = document.getElementById('semestres').value;
+  const id = document.getElementById('id').value;
+  const nome = document.getElementById('nome').value;
+  const sigla = document.getElementById('sigla').value;
+  const descricao = document.getElementById('descricao').value;
   const coordenador = document.getElementById('coordenador').value;
 
   // Inclusao ou alteraçao
   if (currentCursoIndex !== null)
-    cursos[currentCursoIndex] = { codigo, nomeCurso, semestres, coordenador };
-  else addCurso(codigo, nomeCurso, semestres, coordenador);
+    cursos[currentCursoIndex] = { codigo, nome, sigla, descricao, coordenador };
+  else addCurso(nome, sigla, descricao, coordenador);
 
   closeModal('cursoModal');
   renderCursos();

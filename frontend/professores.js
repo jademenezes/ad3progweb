@@ -20,8 +20,6 @@
 //   },
 // ];
 
-// const { response } = require('express');
-
 let currentProfIndex = null;
 let currentDisciplinas = [];
 let professores = [];

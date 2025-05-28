@@ -30,7 +30,8 @@
         <thead>
           <tr>
             <th>Nome do Curso</th>
-            <th>Semestre</th>
+            <th>Sigla</th>
+            <th>Descrição</th>
             <th>Coordenador</th>
             <th>Ações</th>
           </tr>
@@ -46,11 +47,13 @@
         <span class="close">&times;</span>
         <h2>Adicionar/Editar Curso</h2>
         <form id="cursoForm">
-          <input type="hidden" id="codigo" name="codigo" required />
+          <input type="hidden" id="id" name="id" required />
           <label for="nomeCurso">Nome do Curso:</label>
-          <input type="text" name="nomeCurso" id="nomeCurso" required />
-          <label for="semestres">Semestres:</label>
-          <input type="text" name="semestres" id="semestres" required />
+          <input type="text" name="nome" id="nome" required />
+          <label for="semestres">Sigla:</label>
+          <input type="text" name="sigla" id="sigla" required />
+          <label for="semestres">Descrição:</label>
+          <input type="text" name="descricao" id="descricao" required />
           <label for="coordenador">Coordenador</label>
           <input type="text" name="coordenador" id="coordenador" required />
           <button type="submit">Salvar</button>

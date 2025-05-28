@@ -5,7 +5,8 @@ const router = express.Router();
 router.use('/professores', require('./professores'));
 
 // rota para cursos
-// router.use('/cursos', require('./cursos'))
+router.use('/cursos', require('./cursos'));
+
 // rota para disciplinas
 // router.use('/disciplinas', require('./disciplinas'))
 
