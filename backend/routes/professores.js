@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const professores = require('./../public/professores.json');
+const professores = require('../../public/professores.json');
 
 router.get('/', (req, res) => {
   // envia o arquivo JSON como resposta
