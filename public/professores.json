@@ -17,5 +17,13 @@
     "sala": "1C",
     "turno": "Tarde",
     "disciplinas": ["Algoritmos e Lógica de Programação", "Programação Web"]
+  },
+  {
+    "codigo": 3,
+    "nome": "Aujor",
+    "email": "aujor...@...com",
+    "sala": "1B",
+    "turno": "Noite",
+    "disciplinas": ["Administração de Servidores"]
   }
 ]
