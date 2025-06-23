@@ -3,14 +3,14 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(express.json());
-
 app.use(
   cors({
     origin: '*',
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
   })
 );
+
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Hello world!');

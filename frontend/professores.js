@@ -1,25 +1,3 @@
-// let professores = [
-//   {
-//     codigo: 1,
-//     nome: 'Joice',
-//     email: 'joice...@...com',
-//     sala: '2A',
-//     turno: 'Manhã',
-//     disciplinas: [
-//       'Programação Orientada a Objetos',
-//       'Banco de Dados Geográficos',
-//     ],
-//   },
-//   {
-//     codigo: 2,
-//     nome: 'Rafael',
-//     email: 'rafael...@...com',
-//     sala: '1C',
-//     turno: 'Tarde',
-//     disciplinas: ['Algoritmos e Lógica de Programação', 'Programação Web'],
-//   },
-// ];
-
 let currentProfIndex = null;
 let currentDisciplinas = [];
 let professores = [];
@@ -32,13 +10,6 @@ function openModal(modalId) {
 // fechar janela modal
 function closeModal(modalId) {
   document.getElementById(modalId).style.display = 'none';
-}
-
-// Gera um código para cada professor
-function gerarCodigo() {
-  const min = 0;
-  const max = 99;
-  return Math.floor(min + Math.random() * (max - min + 1));
 }
 
 // Renderizar lista de professores
@@ -94,35 +65,38 @@ function renderDisciplinas() {
 
 // Edita informações professor
 function editProf(index) {
-  //   console.log('Inicio editProf()');
-  const prof = professores[index];
-  currentProfIndex = index;
-  document.getElementById('nomeProfessor').value = prof.nome;
-  document.getElementById('email').value = prof.email;
-  document.getElementById('sala').value = prof.sala;
-  document.getElementById('turnoProf').value = prof.turno;
-  document.getElementById('disciplinaProf').value = '';
-  currentDisciplinas = prof.disciplinas;
-  renderDisciplinas();
-  openModal('profModal');
+  let professor = { codigo, nome, email, sala, turno, disciplinas };
+
+  fetch('http://localhost:3000/professores', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(professor),
+  })
+    .then((response) => response.json())
+    .then((dados) => {
+      console.log(dados);
+      renderProfessores();
+    });
 }
 
 // Deleta professor da lista
 function deleteProf(index) {
   if (confirm('Tem certeza que deseja excluir este(a) professor(a)?'))
-    professores.splice(index, 1);
-  renderProfessores();
+    // professores.splice(index, 1);
+    fetch('http://localhost:3000/professores/' + index, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => response.json())
+      .then((dados) => {
+        console.log(dados);
+        renderProfessores();
+      });
 }
 
 // Adiciona professor à lista
-function addProf(nome, email, sala, turno, disciplinas) {
-  // professores.push({ codigo, nome, email, sala, turno, disciplinas });
-
-  // cria um codigo aleatorio para o professor
-  const codigo = gerarCodigo();
-  console.log('código = ' + codigo);
-
-  let professor = { codigo, nome, email, sala, turno, disciplinas };
+function addProf(nome, email, sala, turno, disciplina) {
+  let professor = { nome, email, sala, turno, disciplina };
   console.log(professor);
 
   fetch('http://localhost:3000/professores', {

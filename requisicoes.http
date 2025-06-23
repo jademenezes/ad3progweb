@@ -1,0 +1,34 @@
+### get professores
+GET http://localhost:3000/professores HTTP/1.1
+Content-Type: application/json
+
+### get professor
+GET http://localhost:3000/professores/5 HTTP/1.1
+Content-Type: application/json
+
+### inserir professor
+POST http://localhost:3000/professores HTTP/1.1
+Content-Type: application/json
+
+{
+     "nome": "Aujor Andrade",
+     "email": "prof.aujor@email.com",
+     "sala": "3C",
+     "turno": "Noite",
+     "disciplina": "Governança de TI"
+}
+
+### alterar professor
+PUT http://localhost:3000/professores/2 HTTP/1.1
+Content-Type: application/json
+
+{
+     "nome": "Joice Mota",
+     "email": "prof.joice@email.com",
+     "sala": "1A",
+     "turno": "Tarde",
+     "disciplina": "Banco de Dados Geográficos"
+}
+
+### excluir professor
+DELETE http://localhost:3000/professores/5 HTTP/1.1
