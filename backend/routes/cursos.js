@@ -1,34 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const cursoController = require('../controllers/cursoController');
 
-const cursos = require('../../public/cursos.json');
+router.get('/', cursoController.getCursos);
 
-router.get('/', (req, res) => {
-  res.json({ cursos });
-});
+router.get('/:id', cursoController.getCurso);
 
-router.get('/:id', (req, res) => {
-  const curso = cursos[req.params.id];
+router.post('/', cursoController.insereCurso);
 
-  res.json({ curso });
-});
+router.put('/:id', cursoController.updateCurso);
 
-router.post('/', (req, res) => {
-  console.log(req.body);
-
-  res.send('A requisição POST para /cursos chegou: ' + req.body.nome);
-});
-
-router.put('/:id', (req, res) => {
-  console.log(req.body);
-
-  res.send('A requisição PUT para /cursos chegou: ' + req.params.id);
-});
-
-router.delete('/:id', (req, res) => {
-  console.log(req.body);
-
-  res.send('A requisição DELETE para /cursos chegou: ' + req.params.id);
-});
+router.delete('/:id', cursoController.deleteCurso);
 
 module.exports = router;

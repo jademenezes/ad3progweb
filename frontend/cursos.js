@@ -33,13 +33,6 @@ document.querySelectorAll('.close').forEach(function (closeBtn) {
   });
 });
 
-// Gera um código para cada professor
-function gerarCodigo() {
-  const min = 0;
-  const max = 99;
-  return Math.floor(min + Math.random() * (max - min + 1));
-}
-
 // carregar os cursos como linhas de tabela
 function renderCursos() {
   const tbody = document.querySelector('#cursosTable tbody');
@@ -47,8 +40,8 @@ function renderCursos() {
 
   fetch('http://localhost:3000/cursos')
     .then((response) => response.json())
-    .then((data) => {
-      cursos = data.cursos;
+    .then((cursos) => {
+      // cursos = data.cursos;
       // Log lista recebida da resposta do servidor
       console.log(cursos);
 
@@ -58,7 +51,7 @@ function renderCursos() {
         <td>${curso.nome}</td>
         <td>${curso.sigla}</td>
         <td>${curso.descricao}</td>
-        <td>${curso.coordenador}</td>
+        <td>${curso.cordenador}</td>
         <td>
               <button onclick="editCurso(${index})">Editar</button>
               <button onclick="deleteCurso(${index})">Excluir</button>
@@ -88,15 +81,10 @@ function deleteCurso(index) {
 }
 
 function addCurso(nome, sigla, descricao, coordenador) {
-  // cursos.push({ codigo, nomeCurso, semestres, coordenador });
+  let curso = { nome, sigla, descricao, coordenador };
+  console.log(professor);
 
-  const codigo = gerarCodigo();
-  console.log('código = ' + codigo);
-
-  let curso = { codigo, nome, sigla, descricao, coordenador };
-  console.log(curso);
-
-  fetch('http://localhost:3000/professores', {
+  fetch('http://localhost:3000/cursos', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(curso),

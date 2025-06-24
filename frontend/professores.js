@@ -19,8 +19,7 @@ function renderProfessores() {
 
   fetch('http://localhost:3000/professores')
     .then((response) => response.json())
-    .then((dados) => {
-      professores = dados.professores;
+    .then((professores) => {
       // Log lista recebida da resposta do servidor
       console.log(professores);
 

@@ -6,7 +6,7 @@ class Professor {
     return result.rows;
   }
 
-  static async getById() {
+  static async getById({ id }) {
     const result = await query(
       `
           SELECT * FROM public.professores WHERE id = $1`,
